@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     MainWindow.cpp \
+    SQLiteLoaderAdapter.cpp \
     main.cpp
 
 HEADERS += \
     MainWindow.h \
-    IOC_Contaner.h
+    IOC_Contaner.h \
+    SQLiteLoaderAdapter.h
 
 FORMS += \
     MainWindow.ui
