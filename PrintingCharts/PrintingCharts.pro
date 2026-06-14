@@ -12,6 +12,7 @@ SOURCES += \
     ChartWidget.cpp \
     IChartAdapter.cpp \
     IDataLoader.cpp \
+    IStyleStrategy.cpp \
     JsonLoaderAdapter.cpp \
     LineChartAdapter.cpp \
     MainWindow.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     ChartWidget.h \
     IChartAdapter.h \
     IDataLoader.h \
+    IStyleStrategy.h \
     JsonLoaderAdapter.h \
     LineChartAdapter.h \
     MainWindow.h \
