@@ -1,7 +1,6 @@
 #ifndef SQLITELOADERADAPTER_H
 #define SQLITELOADERADAPTER_H
 
-#include <QPointF>
 #include "IDataLoader.h"
 
 class SQLiteLoaderAdapter : public IDataLoader

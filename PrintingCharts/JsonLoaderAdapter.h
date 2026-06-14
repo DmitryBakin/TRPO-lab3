@@ -1,7 +1,6 @@
 #ifndef JSONLOADERADAPTER_H
 #define JSONLOADERADAPTER_H
 
-#include <QPointF>
 #include "IDataLoader.h"
 
 class JsonLoaderAdapter : public IDataLoader
