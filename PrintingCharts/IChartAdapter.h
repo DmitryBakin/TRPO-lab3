@@ -3,16 +3,13 @@
 
 #include <QVector>
 #include <QPointF>
-#include <memory>
+#include <QWidget>
 
-namespace QtCharts
-{
-class QChart;
-}
-
+// Адаптер для построения графика
 class IChartAdapter {
 public:
     virtual ~IChartAdapter() = default;
-    virtual std::unique_ptr<QtCharts::QChart> createChart(const QVector<QPointF>& data) = 0;
+    virtual QWidget* createChartWidget(const QVector<QPointF>& data) = 0;
 };
+
 #endif // ICHARTADAPTER_H
