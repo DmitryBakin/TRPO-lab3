@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     ChartWidget.cpp \
     ColorStyle.cpp \
+    GrayscaleStyle.cpp \
     IChartAdapter.cpp \
     IDataLoader.cpp \
     IStyleStrategy.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     ChartWidget.h \
     ColorStyle.h \
+    GrayscaleStyle.h \
     IChartAdapter.h \
     IDataLoader.h \
     IStyleStrategy.h \
