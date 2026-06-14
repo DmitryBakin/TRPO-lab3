@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     IDataLoader.cpp \
     JsonLoaderAdapter.cpp \
+    LineChartAdapter.cpp \
     MainWindow.cpp \
     SQLiteLoaderAdapter.cpp \
     main.cpp
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     IDataLoader.h \
     JsonLoaderAdapter.h \
+    LineChartAdapter.h \
     MainWindow.h \
     IOC_Contaner.h \
     SQLiteLoaderAdapter.h
