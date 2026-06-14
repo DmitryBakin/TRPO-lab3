@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 #include <QApplication>
-#include "SQLiteLoaderAdapter.h"
+#include "JsonLoaderAdapter.h".h"
 #include <qDebug>
 #include <QFileInfo>
 #include <QDateTime>
@@ -17,16 +17,16 @@ int main(int argc, char *argv[])
 }
 */
 
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    QString dbPath = "C:\\GItHub\\TRPO-lab3\\HUMIDITY_MOSCOW.sqlite";
 
-    SQLiteLoaderAdapter adapter;
-    QVector<QPointF> data = adapter.load(dbPath, "HUMIDITY_MOSCOW");
-
-    qDebug() << "Всего точек:" << data.size();
+    // Теперь загружаем его
+    JsonLoaderAdapter adapter;
+    QVector<QPointF> data = adapter.load("C:\\GItHub\\TRPO-lab3\\New document 1.json", "");
+    qDebug() << "Загружено точек:" << data.size();
 
     return 0;
 }

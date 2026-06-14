@@ -5,7 +5,8 @@
 
 class JsonLoaderAdapter
 {
-
+public:
+    QVector<QPointF> load(const QString& sourcePath, const QString& tableName);
 };
 
 #endif // JSONLOADERADAPTER_H
