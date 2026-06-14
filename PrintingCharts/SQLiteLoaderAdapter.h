@@ -2,10 +2,11 @@
 #define SQLITELOADERADAPTER_H
 
 #include <QPointF>
+#include "IDataLoader.h"
 
-class SQLiteLoaderAdapter
+class SQLiteLoaderAdapter : public IDataLoader
 {
 public:
-    QVector<QPointF> load(const QString& sourcePath, const QString& tableName);
+    QVector<QPointF> load(const QString& sourcePath, const QString& tableName) override;
 };
 #endif // SQLITELOADERADAPTER_H

@@ -9,12 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    IDataLoader.cpp \
     JsonLoaderAdapter.cpp \
     MainWindow.cpp \
     SQLiteLoaderAdapter.cpp \
     main.cpp
 
 HEADERS += \
+    IDataLoader.h \
     JsonLoaderAdapter.h \
     MainWindow.h \
     IOC_Contaner.h \
