@@ -1,10 +1,11 @@
 #ifndef LINECHARTADAPTER_H
 #define LINECHARTADAPTER_H
 
-class LineChartAdapter
-{
+#include "IChartAdapter.h"
+
+class LineChartAdapter : public IChartAdapter {
 public:
-    LineChartAdapter();
+    QWidget* createChartWidget(const QVector<QPointF>& data) override;
 };
 
 #endif // LINECHARTADAPTER_H
