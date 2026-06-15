@@ -5,7 +5,6 @@
 #include <QPointF>
 #include <QWidget>
 
-// Адаптер для построения графика
 class IChartAdapter {
 public:
     virtual ~IChartAdapter() = default;
