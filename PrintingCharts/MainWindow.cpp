@@ -1,11 +1,5 @@
 #include "MainWindow.h"
-#include "qcheckbox.h"
-#include "qcombobox.h"
-#include "qpushbutton.h"
-#include "ui_MainWindow.h"
-#include "ChartModel.h"
-#include "ChartWidget.h"
-#include "IOC_Contaner.h"
+
 #include "IChartAdapter.h"
 #include "IDataLoader.h"
 #include "IStyleStrategy.h"
@@ -16,23 +10,7 @@
 #include "ColorStyle.h"
 #include "GrayscaleStyle.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSplitter>
-#include <QTreeView>
-#include <QTableView>
-#include <QHeaderView>
-#include <QLabel>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QStatusBar>
-#include <QPainter>
-#include <QPdfWriter>
-#include <QDateTime>
-#include <QAbstractTableModel>
-#include <QDir>
 
-// Глобальный контейнер (определение)
 IOCContainer gContainer;
 int IOCContainer::s_nextTypeId = 115094801;
 
@@ -122,7 +100,6 @@ void MainWindow::setupUI()
     QWidget* central = new QWidget(this);
     QHBoxLayout* mainLayout = new QHBoxLayout(central);
 
-    // ---- Левая панель (дерево папок) ----
     QWidget* leftPanel = new QWidget(this);
     QVBoxLayout* leftLayout = new QVBoxLayout(leftPanel);
     leftLayout->addWidget(new QLabel("Папки", this));
@@ -138,11 +115,9 @@ void MainWindow::setupUI()
     leftLayout->addWidget(m_treeView);
     leftPanel->setMinimumWidth(250);
 
-    // ---- Правая панель ----
     QWidget* rightPanel = new QWidget(this);
     QVBoxLayout* rightLayout = new QVBoxLayout(rightPanel);
 
-    // Таблица файлов
     QWidget* fileArea = new QWidget(this);
     QVBoxLayout* fileLayout = new QVBoxLayout(fileArea);
     fileLayout->addWidget(new QLabel("Файлы в папке", this));
@@ -161,7 +136,6 @@ void MainWindow::setupUI()
     m_fileTableView->hideColumn(3);
     fileLayout->addWidget(m_fileTableView);
 
-    // Управление
     QHBoxLayout* controlLayout = new QHBoxLayout();
     controlLayout->addWidget(new QLabel("Тип графика:", this));
     m_graphTypeBox = new QComboBox(this);
@@ -174,11 +148,9 @@ void MainWindow::setupUI()
     controlLayout->addWidget(m_printBtn);
     controlLayout->addStretch();
 
-    // Виджет графика
     m_chartWidget = new ChartWidget(this);
     m_chartWidget->setMinimumHeight(350);
 
-    // Таблица данных графика
     m_dataTableView = new QTableView(this);
     m_dataTableView->setAlternatingRowColors(true);
     m_dataTableView->horizontalHeader()->setStretchLastSection(true);
@@ -200,7 +172,6 @@ void MainWindow::setupUI()
 
     statusBar()->showMessage("Выберите папку, затем файл БД (.db/.sqlite/.json)");
 
-    // Сигналы
     connect(m_treeView->selectionModel(), &QItemSelectionModel::currentChanged,
             this, &MainWindow::onFolderSelected);
     connect(m_fileTableView->selectionModel(), &QItemSelectionModel::currentChanged,
@@ -325,14 +296,11 @@ void MainWindow::updateChartView()
         return;
     }
 
-    // 1. Обновляем тип графика (берём из комбобокса)
     QString type = m_graphTypeBox->currentData().toString();
     m_chartWidget->setChartType(type);
 
-    // 2. Обновляем данные
     m_chartWidget->setData(m_model->data());
 
-    // 3. Обновляем стиль
     auto style = gContainer.GetObject<IStyleStrategy>();
     style->apply(m_chartWidget);
 }

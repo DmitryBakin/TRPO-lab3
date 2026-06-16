@@ -47,8 +47,6 @@ void ChartWidget::calculateMinMax()
         m_maxY = 1;
         return;
     }
-
-    // Находим минимальные и максимальные значения
     m_minX = m_data[0].x();
     m_maxX = m_data[0].x();
     m_minY = m_data[0].y();
@@ -61,7 +59,6 @@ void ChartWidget::calculateMinMax()
         if (p.y() > m_maxY) m_maxY = p.y();
     }
 
-    // Добавляем отступы (10% с каждой стороны)
     double xRange = m_maxX - m_minX;
     double yRange = m_maxY - m_minY;
 
@@ -73,7 +70,6 @@ void ChartWidget::calculateMinMax()
     m_minY -= yRange * 0.05;
     m_maxY += yRange * 0.05;
 
-    // Если все значения положительные, начинаем ось Y с 0
     if (m_minY > 0) m_minY = 0;
 }
 
@@ -92,17 +88,14 @@ void ChartWidget::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // Если нет данных, показываем сообщение
     if (m_data.isEmpty()) {
         painter.setPen(Qt::gray);
         painter.drawText(rect(), Qt::AlignCenter, "Нет данных для отображения\n\nВыберите файл БД в левой панели");
         return;
     }
 
-    // Заливка фона
     painter.fillRect(rect(), m_backgroundColor);
 
-    // Область для графика
     QRect plotRect(
         m_leftMargin,
         m_topMargin,
@@ -110,17 +103,13 @@ void ChartWidget::paintEvent(QPaintEvent* event)
         height() - m_topMargin - m_bottomMargin
         );
 
-    // Количество делений на осях
     int xTicks = std::min(10, m_data.size());
     int yTicks = 8;
 
-    // Рисуем сетку
     drawGrid(painter, plotRect, xTicks, yTicks);
 
-    // Рисуем оси и подписи
     drawAxes(painter, plotRect, m_minX, m_maxX, m_minY, m_maxY, xTicks, yTicks);
 
-    // Рисуем график в зависимости от типа
     if (m_chartType == "line") {
         drawLineChart(painter, plotRect, m_minX, m_maxX, m_minY, m_maxY);
     } else if (m_chartType == "bar") {
@@ -132,13 +121,11 @@ void ChartWidget::drawGrid(QPainter& painter, const QRect& rect, int xTicks, int
 {
     painter.setPen(QPen(m_gridColor, 1, Qt::DotLine));
 
-    // Вертикальные линии (X)
     for (int i = 0; i <= xTicks; ++i) {
         int x = rect.left() + (i * rect.width()) / xTicks;
         painter.drawLine(x, rect.top(), x, rect.bottom());
     }
 
-    // Горизонтальные линии (Y)
     for (int i = 0; i <= yTicks; ++i) {
         int y = rect.top() + (i * rect.height()) / yTicks;
         painter.drawLine(rect.left(), y, rect.right(), y);
@@ -149,27 +136,22 @@ void ChartWidget::drawAxes(QPainter& painter, const QRect& rect,
                            double minX, double maxX, double minY, double maxY,
                            int xTicks, int yTicks)
 {
-    // Рисуем оси
     painter.setPen(QPen(m_axisColor, 2));
     painter.drawLine(rect.left(), rect.bottom(), rect.right(), rect.bottom());  // ось X
     painter.drawLine(rect.left(), rect.top(), rect.left(), rect.bottom());      // ось Y
 
-    // Подписи осей
     painter.setPen(m_textColor);
     painter.setFont(QFont("Arial", 10));
 
-    // Название оси X
     painter.drawText(rect.center().x() - 30, rect.bottom() + 35, 60, 20,
                      Qt::AlignCenter, "Дата");
 
-    // Название оси Y (с поворотом)
     painter.save();
     painter.translate(20, rect.center().y());
     painter.rotate(-90);
     painter.drawText(-30, 0, 60, 20, Qt::AlignCenter, "Значение");
     painter.restore();
 
-    // Подписи на оси X
     painter.setFont(QFont("Arial", 8));
     for (int i = 0; i <= xTicks; ++i) {
         int x = rect.left() + (i * rect.width()) / xTicks;
@@ -183,7 +165,6 @@ void ChartWidget::drawAxes(QPainter& painter, const QRect& rect,
                          Qt::AlignCenter, label);
     }
 
-    // Подписи на оси Y
     for (int i = 0; i <= yTicks; ++i) {
         int y = rect.bottom() - (i * rect.height()) / yTicks;
         double value = minY + (i * (maxY - minY)) / yTicks;
@@ -199,7 +180,6 @@ void ChartWidget::drawLineChart(QPainter& painter, const QRect& rect,
 {
     if (m_data.size() < 2) return;
 
-    // Строим путь для линии
     QPainterPath path;
     QPoint firstPoint = transformPoint(m_data[0], rect, minX, maxX, minY, maxY);
     path.moveTo(firstPoint);
@@ -208,11 +188,9 @@ void ChartWidget::drawLineChart(QPainter& painter, const QRect& rect,
         path.lineTo(transformPoint(m_data[i], rect, minX, maxX, minY, maxY));
     }
 
-    // Рисуем линию
     painter.setPen(QPen(m_seriesColor, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter.drawPath(path);
 
-    // Рисуем маркеры точек
     painter.setBrush(QBrush(m_seriesColor));
     painter.setPen(QPen(m_axisColor, 0.5));
 
@@ -246,35 +224,10 @@ void ChartWidget::drawBarChart(QPainter& painter, const QRect& rect,
         painter.fillRect(barX, barY, static_cast<int>(barWidth), barHeight, m_seriesColor);
         painter.drawRect(barX, barY, static_cast<int>(barWidth), barHeight);
 
-        // Подпись значения над столбцом
         painter.setPen(m_textColor);
         painter.drawText(barX, barY - 5, static_cast<int>(barWidth), 20,
                          Qt::AlignCenter, QString::number(p.y(), 'f', 1));
         painter.setPen(QPen(m_axisColor, 1));
-    }
-}
-
-void ChartWidget::drawScatterChart(QPainter& painter, const QRect& rect,
-                                   double minX, double maxX, double minY, double maxY)
-{
-    if (m_data.isEmpty()) return;
-
-    painter.setBrush(QBrush(m_seriesColor));
-    painter.setPen(QPen(m_seriesColor, 2));
-
-    for (const QPointF& p : m_data) {
-        QPoint screenPoint = transformPoint(p, rect, minX, maxX, minY, maxY);
-        painter.drawEllipse(screenPoint, 7, 7);
-    }
-
-    // Дополнительно можно соединить линией (опционально)
-    if (m_data.size() >= 2) {
-        painter.setPen(QPen(m_gridColor, 1, Qt::DotLine));
-        for (int i = 1; i < m_data.size(); ++i) {
-            QPoint p1 = transformPoint(m_data[i-1], rect, minX, maxX, minY, maxY);
-            QPoint p2 = transformPoint(m_data[i], rect, minX, maxX, minY, maxY);
-            painter.drawLine(p1, p2);
-        }
     }
 }
 

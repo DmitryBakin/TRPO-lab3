@@ -33,8 +33,6 @@ private:
                        double minX, double maxX, double minY, double maxY);
     void drawBarChart(QPainter& painter, const QRect& rect,
                       double minX, double maxX, double minY, double maxY);
-    void drawScatterChart(QPainter& painter, const QRect& rect,
-                          double minX, double maxX, double minY, double maxY);
 
     void calculateMinMax();
     QPoint transformPoint(const QPointF& point, const QRect& rect,

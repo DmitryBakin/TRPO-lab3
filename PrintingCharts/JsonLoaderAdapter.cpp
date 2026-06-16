@@ -5,7 +5,7 @@
 #include <QJsonObject>
 #include <QDateTime>
 
-QVector<QPointF> JsonLoaderAdapter::load(const QString& sourcePath, const QString& tableName = "")
+QVector<QPointF> JsonLoaderAdapter::load(const QString& sourcePath, const QString&)
 {
     QVector<QPointF> points;
     QFile file(sourcePath);
@@ -56,6 +56,5 @@ QVector<QPointF> JsonLoaderAdapter::load(const QString& sourcePath, const QStrin
         }
     }
 
-    qDebug() << "Из JSON загружено точек:" << points.size();
     return points;
 }

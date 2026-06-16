@@ -4,17 +4,30 @@
 #include <QMainWindow>
 #include <QFileSystemModel>
 
-class ChartModel;
-class ChartWidget;
-class QTreeView;
-class QTableView;
-class QComboBox;
-class QCheckBox;
-class QPushButton;
+#include "qcheckbox.h"
+#include "qcombobox.h"
+#include "qpushbutton.h"
+#include "ui_MainWindow.h"
+#include "ChartModel.h"
+#include "ChartWidget.h"
+#include "IOC_Contaner.h"
 
-namespace Ui {
-class MainWindow;
-}
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QSplitter>
+#include <QTreeView>
+#include <QTableView>
+#include <QHeaderView>
+#include <QLabel>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QStatusBar>
+#include <QPainter>
+#include <QPdfWriter>
+#include <QDateTime>
+#include <QAbstractTableModel>
+#include <QDir>
+
 
 class MainWindow : public QMainWindow
 {

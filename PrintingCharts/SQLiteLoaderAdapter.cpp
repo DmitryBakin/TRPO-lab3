@@ -32,13 +32,11 @@ QVector<QPointF> SQLiteLoaderAdapter::load(const QString& sourcePath, const QStr
 
         if (dt.isValid()) {
             points.append(QPointF(dt.toMSecsSinceEpoch(), value));
-            qDebug() << "Загружено:" << dt.toString("yyyy-MM-dd hh:mm") << "->" << value;
         } else {
             qDebug() << "Не удалось распознать дату:" << timeStr;
         }
     }
 
     db.close();
-    qDebug() << "Загружено точек:" << points.size();
     return points;
 }
