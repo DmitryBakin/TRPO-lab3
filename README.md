@@ -42,7 +42,7 @@ DataTableModel (внутри MainWindow.cpp) - Вспомогательная м
 
 ### 2.3 Архитектурная диаграмма (UML)
 
-https://drive.google.com/file/d/1XJDrcDuvKOOyjNrlpwn7qY5V0uc7CETi/view?usp=sharing
+https://drive.google.com/file/d/1eZegdkfgXPB8G9h5k28mAfEoj3kwKN8j/view?usp=drive_link
 
 ### 2.4 Применённые паттерны проектирования
 
