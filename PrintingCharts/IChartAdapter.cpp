@@ -1,0 +1,2 @@
+#include "IChartAdapter.h"
+
